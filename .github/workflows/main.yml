@@ -1,0 +1,21 @@
+name: Main
+
+on:
+  # Trigger whenever a pull request is opened or its compare's HEAD is updated.
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    steps:
+
+    # Checkout the pull request's HEAD commit
+    # https://github.com/actions/checkout#checkout-pull-request-head-commit-instead-of-merge-commit
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Run b.js and c.js
+      run: |
+        node b.js
+        node c.js
